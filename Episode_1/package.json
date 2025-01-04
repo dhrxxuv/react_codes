@@ -1,0 +1,19 @@
+{
+  "name": "episode_1",
+  "version": "1.0.0",
+  "description": "This is react ",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Dhruv",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.13.3"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

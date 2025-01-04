@@ -1,0 +1,19 @@
+{
+  "name": "episode_3",
+  "version": "1.0.0",
+  "description": "REACT ",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html"
+  },
+  "author": "Dhruv Neekhra",
+  "license": "ISC",
+  "dependencies": {
+    "reacr": "^1.0.0",
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.13.3"
+  }
+}

@@ -1,0 +1,102 @@
+.header{
+    display: flex;
+    width: 100%;
+    border-radius: 10px;
+    padding-left: 3;
+    justify-content: space-between; 
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+    top:0;
+    left:0;
+   
+
+}
+
+.logo{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-left: 0;
+}
+.nav-item ul {
+    list-style-type: none;  
+    padding: 0;
+    display: flex;         
+    justify-content: space-between;  
+}
+.nav-item ul li {
+    margin: 0 15px;  
+}
+
+.nav-item ul li a {
+    text-decoration: none;   
+    color: #000;             
+    font-weight: bold;       
+    padding: 10px;           
+    display: inline-block;   
+}
+
+.nav-item ul li a:hover {
+    color: #007bff;           
+    text-decoration: underline;  
+}
+
+.applayout{
+    
+}
+
+.body{
+    margin-top: 30;
+}
+
+
+.search-bar {
+    display: flex;
+    justify-content: center; 
+    width: 100%; 
+    padding: 20px 0; 
+}
+
+.search-bar input {
+    width: 60%; 
+    padding: 12px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-bar input:focus {
+    border-color: #007bff;
+}
+
+.cart {
+    width: 150px; /* Set the width of the cart */
+    /* border: 1px solid #000; */
+    border-radius: 10px; /* Full border radius for the container */
+    background-color: #f9f9f9;
+    overflow: hidden; /* Ensure the image and content stay within the cart */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0; /* Remove any default padding */
+    box-sizing: border-box; /* Ensure padding doesn’t affect dimensions */
+}
+
+.cart img {
+    display: block; /* Ensure no extra space around the image */
+    margin: 0; /* Remove any default margins */
+}
+
+.cart h3, .cart h4, .cart h5, .cart h6 {
+    margin: 5px 0; /* Consistent spacing for headings */
+    font-size: 14px; /* Adjust font size */
+    line-height: 1.2; /* Improve readability */
+}
+
+
+.cart :hover{
+
+    border: 1px solid green;
+    cursor:pointer
+}
