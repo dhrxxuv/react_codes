@@ -10,6 +10,7 @@ const AppLayout = () => {
     return (
         <div className="applayout">
             <Header />
+    
             <Body />
         </div>
     );
