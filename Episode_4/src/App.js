@@ -3,18 +3,56 @@ import ReactDOM from 'react-dom/client';
 import Header from './components/Header';
 import Body from './components/Body';
 
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router';
+import About from './components/About';
+import Contact from './components/Contact';
+import NotFound from './components/NotFound';
 
+import Footer from './components/Footer';
+import RestaurantMenu from './components/RestaurantMenu';
 
-
+// Layout Component to wrap header, body, and footer
 const AppLayout = () => {
-    return (
-        <div className="applayout">
-            <Header />
-    
-            <Body />
-        </div>
-    );
+  return (
+    <div className="applayout" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <Header />
+      <div style={{ flex: 1 }}>
+        <Outlet /> {/* This renders the content for each route */}
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
+// Define the router
+const AppProvider = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/about",
+        element: <About />
+      },
+      {
+        path: "/contact",
+        element: <Contact />
+      },
+      {
+        path: "/",
+        element: <Body />
+      },
+      {
+        path:"/restaurant/:id",
+        element:<RestaurantMenu/>
+      }
+    ],
+    errorElement: <NotFound />
+  }
+]);
+
+// Render the app
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<AppLayout />);
+root.render(
+  <RouterProvider router={AppProvider} />
+);

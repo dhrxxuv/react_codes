@@ -1,4 +1,4 @@
-const Restaurantcart = ({ info }) => {
+const Restaurantcart  = ({ info }) => {
     return (
         <div className="cart">
             <img
@@ -16,9 +16,12 @@ const Restaurantcart = ({ info }) => {
             <h4>{info.locality}</h4>
             <h5>{info.avgRatingString || info.avgRating}</h5> {/* Use avgRatingString or avgRating */}
             <h6>{info.sla.slaString}</h6>
+            <h6>{info.costForTwo}</h6>
+            <h6>{info.cuisines.join(' , ')}</h6>
         </div>
     );
 };
 
 
-export default Restaurantcart
+
+export default Restaurantcart 
