@@ -1,38 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
+import useRestaurantMenu from '../utils/useRestaurantMenu';
 
 const RestaurantMenu = () => {
-  const [menuCards, setMenuCards] = useState([]);
-  const { id } = useParams();
-
-  useEffect(() => {
-    const fetchMenu = async () => {
-      try {
-        const response = await fetch(
-          `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=26.2124007&lng=78.1772053&restaurantId=${id}`
-        );
-        const data = await response.json();
-
-        const cards =
-          data?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
-        setMenuCards(cards);
-        console.log(cards)
-      } catch (error) {
-        console.error('Error fetching menu:', error);
-      }
-    };
-
-    fetchMenu();
-  }, [id]);
+  const { id } = useParams(); // Get restaurant ID from URL params
+  const { restaurantDetails, menuCards, loading, error } = useRestaurantMenu(id); // Use the custom hook
 
   const renderCard = (card, index) => {
     const cardData = card?.card?.card;
 
     if (!cardData) return null;
 
-    // Identify card type and render dynamically
     if (cardData.carousel) {
-      // Carousel Card
       return (
         <div key={index} className="carousel-card" style={{ marginBottom: '20px' }}>
           <h3>{cardData.title || 'Top Picks'}</h3>
@@ -51,7 +30,6 @@ const RestaurantMenu = () => {
         </div>
       );
     } else if (cardData.itemCards) {
-      // Recommended Items Card
       return (
         <div key={index} className="items-card" style={{ marginBottom: '20px' }}>
           <h3>{cardData.title || 'Recommended Items'}</h3>
@@ -74,7 +52,6 @@ const RestaurantMenu = () => {
         </div>
       );
     } else {
-      // Handle other card types or unknown structures
       return (
         <div key={index} className="unknown-card" style={{ marginBottom: '20px' }}>
           <h3>{cardData.title || 'Unknown Section'}</h3>
@@ -86,11 +63,20 @@ const RestaurantMenu = () => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Restaurant Menu</h1>
-      {menuCards.length > 0 ? (
+      {loading && <p style={{ textAlign: 'center' }}>Loading menu...</p>}
+      {error && <p style={{ textAlign: 'center', color: 'red' }}>{error}</p>}
+
+      {!loading && !error && restaurantDetails && (
+        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+          <h1>{restaurantDetails.name}</h1>
+          <p>{restaurantDetails.areaName}, {restaurantDetails.city}</p>
+          <p>Rating: {restaurantDetails.avgRating || 'Not available'} ★</p>
+          <p>Cost for two: ₹{restaurantDetails.costForTwo / 100 || 'N/A'}</p>
+        </div>
+      )}
+
+      {!loading && !error && menuCards.length > 0 && (
         menuCards.map((card, index) => renderCard(card, index))
-      ) : (
-        <p style={{ textAlign: 'center' }}>Loading menu...</p>
       )}
     </div>
   );
