@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { ThemeProvider } from './utils/useContextTheme';
 import Header from './components/Header';
 import Body from './components/Body';
-
+import appStore from './Redux/appStore';
+import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router';
 import About from './components/About';
 import Contact from './components/Contact';
@@ -54,5 +56,10 @@ const AppProvider = createBrowserRouter([
 // Render the app
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <RouterProvider router={AppProvider} />
+  <Provider store={appStore}>
+      <ThemeProvider>
+        <RouterProvider router={AppProvider} />
+    </ThemeProvider>
+  </Provider>
+  
 );

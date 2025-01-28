@@ -1,43 +1,16 @@
-import React ,{Component}from 'react'
-import UserClass from './UserClass'
-import Dummy from './Dummy'
-// import UserClass from './UserClass'
+import React, { Component } from 'react';
+import UserClass from './UserClass';
+import { useTheme } from '../utils/useContextTheme';
 
-// const About = () => {
-//   return (
-//     <div>
-//       <UserClass name = "Dhruv" location = "DABRA"></UserClass>
-//     </div>
-//   )
-// }
+const About = () => {
+  const { theme } = useTheme(); // Access theme using the useTheme hook
 
-// export default About
-
-
-
-class About extends Component {
-  constructor(){
-    super()
-    console.log(this)
-    console.log('parent constructor')
-
-    this.state={
-      nameeee: 'Dhruv',
-    }
-  }
-  componentDidMount(){
-    console.log("component did mount parent");
-    <Dummy></Dummy>
-  }
-  render() {
-    console.log('render parent')
-    return (
-      <div>
-        <h1>{this.state.nameeee}</h1>
-        <UserClass name="Dhruv" location="DABRA" />
-      </div>
-    );
-  }
-}
+  return (
+    <div className={theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'}>
+      <h1>About Page</h1>
+      <UserClass theme={theme} name="Dhruv" location="DABRA" />
+    </div>
+  );
+};
 
 export default About;

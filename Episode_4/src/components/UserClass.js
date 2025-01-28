@@ -1,21 +1,21 @@
-import React from "react";
+import React, { Component } from "react";
 
-class UserClass extends React.Component {
+class UserClass extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      count: 0, // THIS IS HOW WE CREATE STATE VARIABLE
+      count: 0, // Create a state variable
       count1: false,
       data: [], // Initialize data as an array
     };
     console.log("hi from constructor UserClass ");
   }
 
-  // we can also deStructure the props or can use them directly
-  componentDidUpdate(){
-    console.log('componentdidupdate UserClass ')
+  componentDidUpdate() {
+    console.log("componentDidUpdate UserClass ");
   }
+
   async componentDidMount() {
     console.log("hi from componentDidMount UserClass ");
     try {
@@ -29,12 +29,12 @@ class UserClass extends React.Component {
   }
 
   render() {
-    const { name, location } = this.props; // Destructuring props
-    const { count1, count, data } = this.state; // Destructuring state
-    console.log("hi from render UserClass " );
+    const { name, location, theme } = this.props; // Destructure theme, name, and location
+    const { count1, count, data } = this.state; // Destructure state
+    console.log("hi from render UserClass ");
 
     return (
-      <>
+      <div className={theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'}>
         <h1>Hi from class component</h1>
         <h2>{name}</h2>
         <button
@@ -62,15 +62,15 @@ class UserClass extends React.Component {
 
         {/* Display fetched data */}
         <div>
-            <h1>{data.name}</h1>
+          <h1>{data.name}</h1>
+        </div>
       </div>
-
-      </>
     );
   }
 }
 
 export default UserClass;
+
 
 // import {useEffect, useState} from 'react'
 // const UserClass = ()=>{
