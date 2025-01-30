@@ -19,9 +19,9 @@ const useRestaurantMenu = (id) => {
         const cards =
           data?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || []; // Menu cards
 
-
-        console.log(data)
         console.log('hiii')
+        console.log(data)
+        
         const resname = data.data.cards[0].card.card.text
         setresname(resname)
         setRestaurantDetails(restaurantInfo);

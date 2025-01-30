@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router"; // Use `react-router-dom` instead of `react-router`
 import { useTheme } from "../utils/useContextTheme";
 import useOnlineCheck from "../utils/useOnlineCheck";
-import { useSelector} from "react-redux";
-
+import { useSelector } from "react-redux";
+import { Logo } from "../utils/apibase";
 const OnlineStatusIndicator = ({ online }) => (
   <div className="flex items-center gap-2 text-sm">
     <span
@@ -27,37 +27,39 @@ export const Header = () => {
     setButtonText((prev) => (prev === "Login" ? "Logout" : "Login"));
   };
 
+  // Subscribing to store using selector
+  const cart = useSelector((store) => store.cart.items);
 
-  //subscribing to store using selector 
-  const cart = useSelector((store)=>store.cart.items)
-  console.log(cart)
   return (
     <header
-      className={`bg-black ${theme === "dark" ? "bg-black" : "bg-blue-500"} md:bg-gradient-to-r text-white shadow-lg transition-all duration-300`}
+      className={`${theme === "dark" ? "bg-gray-900" : "bg-blue-600"} text-white shadow-lg`}
     >
-      <div className="container mx-auto flex justify-between items-center px-6 py-4 lg:px-12">
+      <div className="container mx-auto flex justify-between items-center px-4 py-3 md:px-8 md:py-4">
         {/* Logo Section */}
         <div className="flex items-center">
           <img
-            className="w-20 h-20 rounded-full border-2 border-white transition-all transform hover:scale-105"
-            src="https://imgs.search.brave.com/gNn_V0Bu6eSO-ep8OOpQ2PQ2zawEDgE6dNZRRWODeqI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9keW5h/bWljLmJyYW5kY3Jv/d2QuY29tL2Fzc2V0/L2xvZ28vNTM3MDM2/NjMtZjJlYS00ZTgx/LThiODktNDQ5NjVi/MDczODAwL2xvZ28t/c2VhcmNoLWdyaWQt/MXg_bG9nb1RlbXBs/YXRlVmVyc2lvbj0y/JnY9NjM4NDMyNzE2/Mjc2ODcwMDAw.jpeg"
+            className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white transition-all transform hover:scale-105"
+            src={`${Logo}`}
             alt="Logo"
           />
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8 text-lg">
+        <nav className="hidden md:flex items-center gap-6 text-lg">
           <Link to="/" className="hover:text-yellow-300 transition-all">
             Home
-          </Link>
-          <Link to="/contact" className="hover:text-yellow-300 transition-all">
-            Contact
           </Link>
           <Link to="/about" className="hover:text-yellow-300 transition-all">
             About
           </Link>
+          <Link to="/contact" className="hover:text-yellow-300 transition-all">
+            Contact
+          </Link>
+          <Link to="/cart" className="hover:text-yellow-300 transition-all">
+            Cart ({cart.length})
+          </Link>
           <button
-            className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200 transform hover:scale-105"
+            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200 transform hover:scale-105"
             onClick={handleClick}
             aria-label="Login or Logout"
           >
@@ -79,13 +81,13 @@ export const Header = () => {
               className="w-12 h-6 bg-gray-300 rounded-full cursor-pointer transition-all duration-300 transform"
             />
           </label>
-          <li className="font-bold ">Cart items {cart.length} </li>
         </nav>
 
         {/* Mobile Menu Button */}
         <button
           className="md:hidden text-white focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle Mobile Menu"
         >
           <svg
             className="w-6 h-6"
@@ -107,7 +109,7 @@ export const Header = () => {
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div
-          className={`bg-black ${theme === "dark" ? "bg-black" : "bg-blue-500"} md:bg-gradient-to-r text-white shadow-lg transition-all duration-300`}
+          className={`${theme === "dark" ? "bg-gray-800" : "bg-blue-500"} text-white shadow-lg md:hidden`}
         >
           <nav className="flex flex-col items-center gap-4 py-4 text-lg">
             <Link
@@ -118,6 +120,13 @@ export const Header = () => {
               Home
             </Link>
             <Link
+              to="/about"
+              className="hover:text-yellow-300 transition-all"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              About
+            </Link>
+            <Link
               to="/contact"
               className="hover:text-yellow-300 transition-all"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -125,35 +134,34 @@ export const Header = () => {
               Contact
             </Link>
             <Link
-              to="/about"
+              to="/cart"
               className="hover:text-yellow-300 transition-all"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              About
+              Cart ({cart.length})
             </Link>
             <button
-              className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200 transform hover:scale-105"
+              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200 transform hover:scale-105"
               onClick={handleClick}
               aria-label="Login or Logout"
             >
               {buttonText}
             </button>
             <OnlineStatusIndicator online={onlineStatus} />
+            <label
+              htmlFor="theme-toggle"
+              className="flex items-center gap-2 cursor-pointer"
+            >
+              <span>Dark Mode</span>
+              <input
+                type="checkbox"
+                id="theme-toggle"
+                checked={theme === "dark"}
+                onChange={toggleTheme}
+                className="w-12 h-6 bg-gray-300 rounded-full cursor-pointer transition-all duration-300 transform"
+              />
+            </label>
           </nav>
-          <label
-            htmlFor="theme-toggle"
-            className="flex items-center gap-2 cursor-pointer md:hidden"
-          >
-            <span>Dark Mode</span>
-            <input
-              type="checkbox"
-              id="theme-toggle"
-              checked={theme === "dark"}
-              onChange={toggleTheme}
-              className="w-12 h-6 bg-gray-300 rounded-full cursor-pointer transition-all duration-300 transform"
-            />
-          </label>
-         
         </div>
       )}
     </header>

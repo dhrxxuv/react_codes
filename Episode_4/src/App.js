@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router';
 import About from './components/About';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
-
+import Cart from './components/Cart';
 import Footer from './components/Footer';
 import RestaurantMenu from './components/RestaurantMenu';
 
@@ -47,6 +47,10 @@ const AppProvider = createBrowserRouter([
       {
         path:"/restaurant/:id",
         element:<RestaurantMenu/>
+      },
+      {
+        path: "/cart",
+        element: <Cart />
       }
     ],
     errorElement: <NotFound />
