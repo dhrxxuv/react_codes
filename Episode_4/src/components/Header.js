@@ -4,6 +4,7 @@ import { useTheme } from "../utils/useContextTheme";
 import useOnlineCheck from "../utils/useOnlineCheck";
 import { useSelector } from "react-redux";
 import { Logo } from "../utils/apibase";
+
 const OnlineStatusIndicator = ({ online }) => (
   <div className="flex items-center gap-2 text-sm">
     <span
@@ -67,20 +68,19 @@ export const Header = () => {
           </button>
           <OnlineStatusIndicator online={onlineStatus} />
 
-          {/* Theme Toggle */}
-          <label
-            htmlFor="theme-toggle"
-            className="flex items-center gap-2 cursor-pointer"
-          >
-            <span className="hidden sm:block">Dark Mode</span>
-            <input
-              type="checkbox"
-              id="theme-toggle"
-              checked={theme === "dark"}
-              onChange={toggleTheme}
-              className="w-12 h-6 bg-gray-300 rounded-full cursor-pointer transition-all duration-300 transform"
-            />
-          </label>
+          {/* Dark Mode Toggle Button */}
+          <div className="flex justify-end">
+            <button
+              onClick={toggleTheme}
+              className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full focus:outline-none"
+            >
+              {theme === "dark" ? (
+                <span className="text-yellow-400">🌞</span> // Sun icon for light mode
+              ) : (
+                <span className="text-gray-800">🌙</span> // Moon icon for dark mode
+              )}
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -148,19 +148,18 @@ export const Header = () => {
               {buttonText}
             </button>
             <OnlineStatusIndicator online={onlineStatus} />
-            <label
-              htmlFor="theme-toggle"
-              className="flex items-center gap-2 cursor-pointer"
-            >
-              <span>Dark Mode</span>
-              <input
-                type="checkbox"
-                id="theme-toggle"
-                checked={theme === "dark"}
-                onChange={toggleTheme}
-                className="w-12 h-6 bg-gray-300 rounded-full cursor-pointer transition-all duration-300 transform"
-              />
-            </label>
+            <div className="flex justify-end">
+              <button
+                onClick={toggleTheme}
+                className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full focus:outline-none"
+              >
+                {theme === "dark" ? (
+                  <span className="text-yellow-400">🌞</span> // Sun icon for light mode
+                ) : (
+                  <span className="text-gray-800">🌙</span> // Moon icon for dark mode
+                )}
+              </button>
+            </div>
           </nav>
         </div>
       )}
