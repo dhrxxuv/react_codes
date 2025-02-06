@@ -45,6 +45,10 @@ const Body = () => {
     setList(filteredList);
   };
 
+  const handleRatingFilterChange = (e) => {
+    setRatingFilter(parseFloat(e.target.value));
+  };
+
   if (loading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-5">
@@ -86,35 +90,23 @@ const Body = () => {
         </button>
       </div>
 
-      {/* Rating Filter Section */}
+      {/* Dropdown Rating Filter Section */}
       <div className="flex flex-col items-center space-y-4">
         <label className="text-lg font-medium text-gray-800 dark:text-white">
-          Filter by Rating:{" "}
-          <span className="text-green-600 font-bold">{ratingFilter}</span>
+          Filter by Rating:
         </label>
-        <div className="w-full md:w-1/2 lg:w-1/3 space-y-2">
-          <input
-            type="range"
-            min="0"
-            max="5"
-            step="0.1"
-            value={ratingFilter}
-            onChange={(e) => setRatingFilter(parseFloat(e.target.value))}
-            className="w-full h-3 bg-gradient-to-r from-green-200 via-green-400 to-green-600 dark:from-green-600 dark:via-green-500 dark:to-green-400 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
-          />
-          <div className="flex justify-between text-sm text-gray-500 dark:text-gray-300">
-            {[0, 1, 2, 3, 4, 5].map((value) => (
-              <span
-                key={value}
-                className={`${
-                  value <= ratingFilter ? "text-green-600 font-bold" : ""
-                }`}
-              >
-                {value}
-              </span>
-            ))}
-          </div>
-        </div>
+        <select
+          value={ratingFilter}
+          onChange={handleRatingFilterChange}
+          className="w-full md:w-1/3 px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
+        >
+          <option value={0}>All Ratings</option>
+          <option value={1}>⭐ </option>
+          <option value={2}>⭐⭐ </option>
+          <option value={3}>⭐⭐⭐ </option>
+          <option value={4}>⭐⭐⭐⭐ </option>
+          <option value={5}>⭐⭐⭐⭐⭐ </option>
+        </select>
       </div>
 
       {/* Restaurant Cards Container */}

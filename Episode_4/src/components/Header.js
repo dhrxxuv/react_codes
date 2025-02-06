@@ -38,11 +38,13 @@ export const Header = () => {
       <div className="container mx-auto flex justify-between items-center px-4 py-3 md:px-8 md:py-4">
         {/* Logo Section */}
         <div className="flex items-center">
+          <Link to="/">
           <img
             className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-white transition-all transform hover:scale-105"
             src={`${Logo}`}
             alt="Logo"
           />
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
@@ -57,7 +59,7 @@ export const Header = () => {
             Contact
           </Link>
           <Link to="/cart" className="hover:text-yellow-300 transition-all">
-            Cart ({cart.length})
+          🛒 {cart.length === 0 ? "" : cart.length}
           </Link>
           <button
             className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200 transform hover:scale-105"
@@ -138,7 +140,7 @@ export const Header = () => {
               className="hover:text-yellow-300 transition-all"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Cart ({cart.length})
+           🛒 {cart.length === 0 ? "" : cart.length}
             </Link>
             <button
               className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-200 transform hover:scale-105"
