@@ -1,3 +1,4 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../Redux/cartSlice";
 import ItemList from "./ItemList";
@@ -27,6 +28,7 @@ const Cart = () => {
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-semibold">Cart Items</h2>
             <button
+              data-testid = "clearbtn"
               className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
               onClick={handleClearCart}
             >
