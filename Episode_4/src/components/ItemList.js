@@ -29,12 +29,14 @@ const ItemList = ({ items }) => {
       }`}
     >
       {items.map((item) => {
+        
         const itemId = item.card.info.id;
         const cartItem = cartItems.find((i) => i.card.info.id === itemId);
         const quantity = cartItem ? cartItem.quantity : 0;
 
         return (
           <div
+            data-testid = "itemsID"
             key={itemId}
             className={`border ${
               theme === "dark"

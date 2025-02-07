@@ -77,6 +77,7 @@ const Body = () => {
       <div className="flex flex-col md:flex-row justify-center items-center gap-4">
         <input
           type="text"
+          data-testid = "search-input"
           placeholder="Search restaurants..."
           className="w-full md:w-1/3 px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
           value={searchText}
@@ -96,6 +97,7 @@ const Body = () => {
           Filter by Rating:
         </label>
         <select
+          data-testid = "filter"
           value={ratingFilter}
           onChange={handleRatingFilterChange}
           className="w-full md:w-1/3 px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"

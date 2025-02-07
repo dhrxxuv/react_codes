@@ -1,5 +1,6 @@
+import React from 'react';
 import { useState } from "react";
-import { Link } from "react-router"; // Use `react-router-dom` instead of `react-router`
+import { Link } from "react-router";
 import { useTheme } from "../utils/useContextTheme";
 import useOnlineCheck from "../utils/useOnlineCheck";
 import { useSelector } from "react-redux";
@@ -30,7 +31,6 @@ export const Header = () => {
 
   // Subscribing to store using selector
   const cart = useSelector((store) => store.cart.items);
-
   return (
     <header
       className={`${theme === "dark" ? "bg-gray-900" : "bg-blue-600"} text-white shadow-lg`}

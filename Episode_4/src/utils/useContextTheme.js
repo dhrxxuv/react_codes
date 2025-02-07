@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-
+import React from "react";
 const ThemeContext = createContext();
 
 // Provider component to wrap around your app

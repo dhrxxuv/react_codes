@@ -1,10 +1,13 @@
+import React from "react";
 import { useTheme } from "../utils/useContextTheme";
+
 
 const Restaurantcart = ({ info }) => {
   const { theme } = useTheme(); // Use the theme context
 
   return (
     <div
+      data-testid="rescart"
       className={`cart rounded-lg p-3 hover:shadow-lg transition-transform transform hover:scale-105 ${
         theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-gray-800'
       }`}

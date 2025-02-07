@@ -1,5 +1,5 @@
-/** @type {import('jest').Config} */
-const config = {
+module.exports = {
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"], // Ensure this path is correct
   transformIgnorePatterns: [
     "/node_modules/(?!lucide-react)/" // This ensures lucide-react is transformed by Babel
   ],
@@ -11,5 +11,3 @@ const config = {
   collectCoverage: true,
   coverageDirectory: "coverage",
 };
-
-module.exports = config;
