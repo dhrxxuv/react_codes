@@ -54,7 +54,7 @@ const Login = () => {
           const { uid, email: userEmail, displayName } = auth.currentUser;
           dispatch(adduser({ uid, email: userEmail, displayName }));
           resetForm();
-          navigate("/browse");
+          //navigate("/browse");
         } catch (error) {
           setFirebaseError(error.message);
         }
@@ -66,7 +66,7 @@ const Login = () => {
             password.current.value
           );
           resetForm();
-          navigate("/browse");
+          //navigate("/browse");
         } catch (error) {
           setFirebaseError(error.message);
         }

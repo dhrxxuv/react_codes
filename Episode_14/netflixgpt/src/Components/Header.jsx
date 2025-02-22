@@ -5,8 +5,12 @@ import { auth } from "../utlis/firebase";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
-
+import { useEffect } from "react"
+import {  onAuthStateChanged } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { adduser, removeuser } from "./Redux/userSlice";
 const Header = () => {
+  const dispatch = useDispatch()
   const openRef = useRef(false);
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
@@ -27,6 +31,26 @@ const Header = () => {
   };
 
   console.log("hi")
+
+  useEffect(()=>{
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const {uid,email,displayName} = user;
+        // ...
+        dispatch(adduser({uid:uid,email:email,displayName:displayName}))
+        navigate('/browse')
+      
+      } else {
+        // User is signed out
+        dispatch(removeuser())
+        navigate('/')
+        // ...
+      }
+    })
+    return ()=>unSubscribe()
+  },[])
+
+
   return (
     <div className="absolute top-0 left-0 w-full items-center px-8 py-6 bg-gradient-to-b from-black via-transparent z-10 flex justify-between">
       <img className="w-44" src="logo.png" alt="logo" />
