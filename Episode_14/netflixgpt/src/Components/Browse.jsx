@@ -2,13 +2,18 @@ import Header from "./Header";
 import useMovies from "../utlis/useMovies";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
+import usePopular from "../utlis/usepopular";
+import useTopRated from "../utlis/useTopRated";
+import useUpComingMovies from "../utlis/useUpComingMovies";
 
 const Browse = () => {
   useMovies();
-
+  usePopular()
+  useTopRated()
+  useUpComingMovies()
   return (
     <div>
-      <div className="relative z-20">
+      <div >
         <Header />
       </div>
       {/* Add Tailwind mt-5 for 20px margin-top */}

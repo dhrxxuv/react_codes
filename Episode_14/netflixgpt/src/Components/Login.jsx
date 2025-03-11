@@ -8,8 +8,9 @@ import { auth } from "../utlis/firebase";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { adduser } from "./Redux/userSlice";
+
 const Login = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [clickedOnSignup, setSignup] = useState(false);
   const [errors, setErrors] = useState({});
   const [firebaseError, setFirebaseError] = useState("");
@@ -21,11 +22,7 @@ const Login = () => {
   const confirmPass = useRef();
   const Mob = useRef();
 
-  const resetForm = () => {
-    if (formRef.current) {
-      formRef.current.reset();
-    }
-  };
+  const resetForm = () => formRef.current?.reset();
 
   const handleValidation = async () => {
     setFirebaseError("");
@@ -43,30 +40,18 @@ const Login = () => {
     if (Object.keys(validationErrors).length === 0) {
       if (clickedOnSignup) {
         try {
-          const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email.current.value,
-            password.current.value
-          );
-          await updateProfile(userCredential.user, {
-            displayName: name.current.value
-          });
+          const userCredential = await createUserWithEmailAndPassword(auth, email.current.value, password.current.value);
+          await updateProfile(userCredential.user, { displayName: name.current.value });
           const { uid, email: userEmail, displayName } = auth.currentUser;
           dispatch(adduser({ uid, email: userEmail, displayName }));
           resetForm();
-          //navigate("/browse");
         } catch (error) {
           setFirebaseError(error.message);
         }
       } else {
         try {
-          const userDetail = await signInWithEmailAndPassword(
-            auth,
-            email.current.value,
-            password.current.value
-          );
+          await signInWithEmailAndPassword(auth, email.current.value, password.current.value);
           resetForm();
-          //navigate("/browse");
         } catch (error) {
           setFirebaseError(error.message);
         }
@@ -75,78 +60,79 @@ const Login = () => {
   };
 
   const handleFormToggle = () => {
-    setSignup(prev => !prev);
+    setSignup((prev) => !prev);
     setErrors({});
     setFirebaseError("");
     resetForm();
   };
 
   return (
-    <div className="relative h-screen w-screen">
+    <div className="relative h-screen w-screen bg-black">
       <Header />
       <div className="absolute inset-0">
-        <img className="h-full w-full object-cover" src={bg_Img} alt="Bg_image" />
+        <img className="h-full w-full object-cover opacity-40" src={bg_Img} alt="Background" />
       </div>
       <form
         ref={formRef}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-70 text-white p-12 w-1/4 min-h-[400px] flex flex-col justify-center rounded-lg shadow-lg"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#000000] bg-opacity-80 text-white p-8 md:p-12 w-full max-w-md rounded-lg"
         onSubmit={(e) => e.preventDefault()}
       >
-        <h1 className="font-bold text-3xl px-4">
-          {clickedOnSignup ? "Sign Up" : "Sign In"}
-        </h1>
+        <h1 className="font-bold text-3xl mb-8">{clickedOnSignup ? "Sign Up" : "Sign In"}</h1>
         {clickedOnSignup && (
           <>
             <input
               ref={name}
               type="text"
-              placeholder="Name"
-              className="block w-full p-3 my-3 bg-gray-800 border border-gray-600 rounded"
+              placeholder="Full Name"
+              className="block w-full p-4 mb-4 bg-[#333] text-white border-0 rounded focus:outline-none focus:ring-2 focus:ring-[#e50914]"
             />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+            {errors.name && <p className="text-[#e87c03] text-sm mb-4">{errors.name}</p>}
           </>
         )}
         <input
           ref={email}
           type="email"
-          placeholder="Email"
-          className="block w-full p-3 my-3 bg-gray-800 border border-gray-600 rounded"
+          placeholder="Email or Phone Number"
+          className="block w-full p-4 mb-4 bg-[#333] text-white border-0 rounded focus:outline-none focus:ring-2 focus:ring-[#e50914]"
         />
-        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+        {errors.email && <p className="text-[#e87c03] text-sm mb-4">{errors.email}</p>}
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="block w-full p-3 my-3 bg-gray-800 border border-gray-600 rounded"
+          className="block w-full p-4 mb-4 bg-[#333] text-white border-0 rounded focus:outline-none focus:ring-2 focus:ring-[#e50914]"
         />
-        {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+        {errors.password && <p className="text-[#e87c03] text-sm mb-4">{errors.password}</p>}
         {clickedOnSignup && (
           <>
             <input
               ref={confirmPass}
               type="password"
               placeholder="Confirm Password"
-              className="block w-full p-3 my-3 bg-gray-800 border border-gray-600 rounded"
+              className="block w-full p-4 mb-4 bg-[#333] text-white border-0 rounded focus:outline-none focus:ring-2 focus:ring-[#e50914]"
             />
-            {errors.confirmPass && <p className="text-red-500 text-sm">{errors.confirmPass}</p>}
+            {errors.confirmPass && <p className="text-[#e87c03] text-sm mb-4">{errors.confirmPass}</p>}
             <input
               ref={Mob}
               type="text"
               placeholder="Mobile Number"
-              className="block w-full p-3 my-3 bg-gray-800 border border-gray-600 rounded"
+              className="block w-full p-4 mb-4 bg-[#333] text-white border-0 rounded focus:outline-none focus:ring-2 focus:ring-[#e50914]"
             />
-            {errors.mobile && <p className="text-red-500 text-sm">{errors.mobile}</p>}
+            {errors.mobile && <p className="text-[#e87c03] text-sm mb-4">{errors.mobile}</p>}
           </>
         )}
-        {firebaseError && <p className="text-red-500 text-sm text-center">{firebaseError}</p>}
+        {firebaseError && <p className="text-[#e87c03] text-sm mb-4">{firebaseError}</p>}
         <button
-          className="w-full p-3 mt-4 bg-red-600 text-white font-bold rounded hover:bg-red-700"
+          className="w-full p-4 bg-[#e50914] text-white font-semibold rounded hover:bg-[#f6121d] transition duration-200"
           onClick={handleValidation}
         >
           {clickedOnSignup ? "Sign Up" : "Sign In"}
         </button>
-        <p className="py-4 cursor-pointer" onClick={handleFormToggle}>
-          {clickedOnSignup ? "Already have an account? Sign In" : "New to Netflix? Sign Up Now"}
+        <p
+          className="text-[#b3b3b3] text-sm mt-6 cursor-pointer hover:underline"
+          onClick={handleFormToggle}
+        >
+          {clickedOnSignup ? "Already registered? Sign In now." : "New to Netflix? Sign Up now."}
         </p>
       </form>
     </div>

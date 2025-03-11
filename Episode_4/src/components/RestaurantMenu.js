@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import useRestaurantMenu from '../utils/useRestaurantMenu';
 import RestaurantCategory from './RestaurantCategory';
-import { useTheme } from '../utils/useContextTheme'; // Import useTheme hook
+import { useTheme } from '../utils/useContextTheme'; 
 
 const RestaurantMenu = () => {
   const { id } = useParams();
   const { restname, menuCards } = useRestaurantMenu(id);
-  const [showIndex, setShowIndex] = useState(null); // State to track the open accordion index
-  const { theme } = useTheme(); // Use the theme context
+  const [showIndex, setShowIndex] = useState(null); 
+  const { theme } = useTheme();
 
-  // Filter menu cards to only include item categories
+ 
   const filtercarts = menuCards.filter(
     (c) => c.card?.card?.["@type"] === 'type.googleapis.com/swiggy.presentation.food.v2.ItemCategory'
   );

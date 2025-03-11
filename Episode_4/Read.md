@@ -133,3 +133,6 @@
 - Clicking on any color/style opens a screenshot of that specific moment:
   - Displays the active screen and applications browsed during the 5-minute duration.
 >>>>>>> b618160216b7c3ee59fc2a16c368a88487067106
+
+
+//npx parcel index.html --no-cache
