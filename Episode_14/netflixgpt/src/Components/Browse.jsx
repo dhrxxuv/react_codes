@@ -5,35 +5,36 @@ import SecondaryContainer from "./SecondaryContainer";
 import usePopular from "../utlis/usepopular";
 import useTopRated from "../utlis/useTopRated";
 import useUpComingMovies from "../utlis/useUpComingMovies";
+import { Outlet } from "react-router";
+import GptSearch from './GptSearch';
+import { useSelector } from "react-redux";
 
 const Browse = () => {
+  const showgptsearch = useSelector((store) => store.gpt.showgptsearch);
   useMovies();
-  usePopular()
-  useTopRated()
-  useUpComingMovies()
+  usePopular();
+  useTopRated();
+  useUpComingMovies();
+
   return (
     <div>
-      <div >
+      <div>
         <Header />
       </div>
-      {/* Add Tailwind mt-5 for 20px margin-top */}
-      <div className="mt-5">
-        {/*
-          MainContainer
-            - videoBackground
-            - videoTitle
-          SecondaryContainer
-            - MoviesList *n
-              - cards*n
-        */}
-        <div>
-          <MainContainer />
+
+      {showgptsearch ? (
+        <GptSearch />
+      ) : (
+        <div className="mt-5">
+          <div>
+            <MainContainer />
+          </div>
+          <div>
+            <SecondaryContainer />
+            <Outlet />
+          </div>
         </div>
-        {/* Fixed typo: 'dir' to 'div' */}
-        <div>
-          <SecondaryContainer />
-        </div>
-      </div>
+      )}
     </div>
   );
 };

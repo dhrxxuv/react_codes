@@ -1,33 +1,29 @@
-import { createBrowserRouter, RouterProvider } from "react-router"
-import Login from "./Login"
-import Browse from './Browse'
+import { createBrowserRouter, RouterProvider } from "react-router";
+import Login from "./Login";
+import Browse from "./Browse";
+import MoviesDetails from "./MoviesDetails"; // Import the new page
 
 const Body = () => {
-
-
   const appRouter = createBrowserRouter([
     {
-      path:"/",
-      element: <Login/>
-
+      path: "/",
+      element: <Login />,
     },
     {
-      path:"/browse",
-      element: <Browse/>
-      
-    }
-
-
-  ])
-
+      path: "/browse",
+      element: <Browse />,
+      children: [
+        {
+          path: "movie/:id", // Dynamic route for movie details
+          element: <MoviesDetails />,
+        },
+      ],
+    },
+  ]);
 
   return (
-    <div>
-      <RouterProvider router={appRouter}>
+    <RouterProvider router={appRouter} />
+  );
+};
 
-      </RouterProvider>
-    </div>
-  )
-}
-
-export default Body
+export default Body;

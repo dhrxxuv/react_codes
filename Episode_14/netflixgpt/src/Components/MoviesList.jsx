@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useRef } from "react";
 import MoviesCart from "./MoviesCart";
+import { Link } from "react-router";
 
 const MoviesList = ({ title, movies }) => {
   const scrollContainerRef = useRef(null);
@@ -53,7 +54,9 @@ return (
         >
           {movies &&
             movies.map((item, index) => (
-              <MoviesCart key={index} poster_path={item.poster_path} />
+              <Link key={index} to={`/browse/movie/${item.id}`}>
+                <MoviesCart poster_path={item.poster_path} />
+              </Link>
             ))}
         </div>
       </div>
