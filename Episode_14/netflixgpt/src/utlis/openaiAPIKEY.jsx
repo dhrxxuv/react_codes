@@ -1,1 +1,1 @@
-export const  OPENAI_KEY = "AIzaSyA-hbLCmhFvSB90tgm59MPdLmfw4FBTXQI"
+export const  OPENAI_KEY = import.meta.env.VITE__APP_OPENAI_KEY
