@@ -2,6 +2,7 @@ import { imageCdnUrl } from "../utlis/tmbdApi";
 
 // eslint-disable-next-line react/prop-types
 const MoviesCart = ({ poster_path }) => {
+  if(!poster_path) return
     return (
       <div className="relative flex-shrink-0 w-40 md:w-48 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg group">
         <img

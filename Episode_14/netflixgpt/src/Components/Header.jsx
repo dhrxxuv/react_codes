@@ -16,29 +16,28 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-  const config = useSelector((store) => store.config); // Access config state
-  const [showgpt, setshowgpt] = useState(true);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown visibility
+  const config = useSelector((store) => store.config);
+  const tooglegpt = useSelector((store) => store.gpt.showgptsearch);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = (e) => {
-    e.stopPropagation(); // Prevent event bubbling
+    e.stopPropagation();
     setIsDropdownOpen((prev) => !prev);
   };
 
   const handleLanguageChange = (e) => {
-    e.stopPropagation(); // Prevent dropdown from closing
-    const selectedLanguage = e.target.value; // Get the selected language identifier
-    dispatch(changeLanguage(selectedLanguage)); // Dispatch the selected language
+    e.stopPropagation();
+    dispatch(changeLanguage(e.target.value));
   };
 
   const handlegpt = (e) => {
-    e.stopPropagation(); // Prevent dropdown from closing
+    e.stopPropagation();
     dispatch(toogleGptSearchView());
-    setshowgpt(!showgpt);
   };
 
   const handlesignout = (e) => {
-    e.stopPropagation(); // Prevent dropdown from closing
+    e.stopPropagation();
     signOut(auth)
       .then(() => navigate("/"))
       .catch(() => navigate("/error"));
@@ -58,7 +57,6 @@ const Header = () => {
     return () => unSubscribe();
   }, [dispatch, navigate]);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (isDropdownOpen && !e.target.closest("#dropdown") && !e.target.closest("#user-button")) {
@@ -90,38 +88,38 @@ const Header = () => {
               alt="User Icon"
             />
           </button>
+
           <div
             id="dropdown"
             className={`absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-xl shadow-2xl transition-all duration-300 ease-in-out origin-top-right ${
               isDropdownOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 hidden"
             }`}
           >
-            <select
-              value={config.lang} // Bind the select value to the current language
-              onChange={handleLanguageChange}
-              className="w-full bg-transparent text-white text-sm px-4 py-2 border-b border-gray-700 focus:outline-none appearance-none"
-            >
-              {SupportedLanguages.map((lang) => (
-                <option
-                  key={lang.identifier}
-                  value={lang.identifier}
-                  className="bg-gray-800 hover:bg-gray-700 text-white"
-                >
-                  {lang.name}
-                </option>
-              ))}
-            </select>
             <h3 className="text-white text-sm px-4 py-2 font-semibold bg-gray-800">
               Hi, {user.displayName}
             </h3>
-            {showgpt && (
-              <button
-                onClick={handlegpt}
-                className="w-full text-left px-4 py-2 text-gray-300 bg-gray-800 hover:bg-gray-700 transition-all duration-300 hover:text-white"
+
+            <button
+              onClick={handlegpt}
+              className="w-full text-left px-4 py-2 text-gray-300 bg-gray-800 hover:bg-gray-700 transition-all duration-300 hover:text-white"
+            >
+              {tooglegpt ? "Home" : "GPT Search"}
+            </button>
+
+            {tooglegpt && (
+              <select
+                value={config.lang}
+                onChange={handleLanguageChange}
+                className="w-full bg-transparent text-white text-sm px-4 py-2 border-b border-gray-700 focus:outline-none appearance-none"
               >
-                GPT Search
-              </button>
+                {SupportedLanguages.map((lang) => (
+                  <option key={lang.identifier} value={lang.identifier} className="bg-gray-800 hover:bg-gray-700 text-white">
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
             )}
+
             <button
               onClick={handlesignout}
               className="w-full text-left px-4 py-2 text-gray-300 bg-gray-800 hover:bg-red-600 hover:text-white transition-all duration-300"
