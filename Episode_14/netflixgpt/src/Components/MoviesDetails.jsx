@@ -1,13 +1,12 @@
 import { useParams } from "react-router";
+import VideoPlay from "./VideoPlay";
 
 const MoviesDetails = () => {
-  const { id } = useParams(); // Get the movie ID from the URL
+  const { id } = useParams(); // Get the `id` from the URL
 
   return (
     <div>
-      <h2>Movie Details Page</h2>
-      <p>Movie ID: {id}</p>
-      {/* You can fetch and display more details about the movie using this id */}
+      <VideoPlay id={id} /> {/* Pass the `id` to VideoPlay */}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Login from "./Login";
 import Browse from "./Browse";
-import MoviesDetails from "./MoviesDetails"; // Import the new page
+import MoviesDetails from "./MoviesDetails";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -12,18 +12,14 @@ const Body = () => {
     {
       path: "/browse",
       element: <Browse />,
-      children: [
-        {
-          path: "movie/:id", // Dynamic route for movie details
-          element: <MoviesDetails />,
-        },
-      ],
+    },
+    {
+      path: "/movies/:id",
+      element: <MoviesDetails />,
     },
   ]);
 
-  return (
-    <RouterProvider router={appRouter} />
-  );
+  return <RouterProvider router={appRouter} />;
 };
 
 export default Body;
